@@ -70,13 +70,11 @@ public class LEDController {
             return;
         }
 
-        // Try to find a port that looks like it's an Arduino
         for (SerialPort port : ports) {
-            String desc = port.getDescriptivePortName().toLowerCase();
-            String info = port.getPortDescription().toLowerCase();
+            int vid = port.getVendorID();  // Arduino = 0x2341
+            int pid = port.getProductID();  // Nano Every = 0x0058
 
-            // Check if either descriptor mentions "arduino"
-            if (desc.contains("arduino") || info.contains("arduino")) {
+            if (vid == 0x2341 && pid == 0x0058) {
                 comPort = port;
                 break;
             }
