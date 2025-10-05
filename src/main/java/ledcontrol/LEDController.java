@@ -91,11 +91,8 @@ public class LEDController {
         if (comPort.openPort()) {
             System.out.println("Connected to " + comPort.getSystemPortName());
         } else {
-            System.out.println("Failed to open Arduino port.");
+            System.out.println("Failed to open Arduino port. Is it already in use?");
         }
-
-        // Assign comPort field to the newly opened port.
-        this.comPort = comPort;
         
         // Wait 1 second to ensure Arduino has finished starting up
         try {
