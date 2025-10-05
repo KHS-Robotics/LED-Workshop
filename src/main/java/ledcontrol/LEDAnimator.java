@@ -7,13 +7,11 @@ public class LEDAnimator {
 
     private LEDController controller;
     private int numLEDs;
-    private Color[] colorArray;
 
     /** Initializes the animator with a given number of LEDs. */
     public LEDAnimator(int numLEDs) {
         this.controller = new LEDController();
         this.numLEDs = numLEDs;
-        this.colorArray = new Color[numLEDs];
     }
 
     /** Turns on LED 0 to a solid red color. */
@@ -56,7 +54,7 @@ public class LEDAnimator {
     }
 
     /** Blink the LEDs at increasing frequency. */
-    public void blinkFrequency() throws InterruptedException {
+    public void blinkFrequently() throws InterruptedException {
         for (int i = 0; i < this.numLEDs; i++) {
             for (int k = 0; k <= i; k++) {
                 for (int j = 0; j <= i; j++) {
@@ -71,6 +69,18 @@ public class LEDAnimator {
         }
     }
 
+    /** Turns lights on one at a time, then off one at a time. */
+    public void growAndShrink() throws InterruptedException {
+        for (int i = 0; i < this.numLEDs; i++) {
+            this.controller.sendRGB(i, 0, 64, 0);
+            Thread.sleep(50);
+        }
+        for (int i = 0; i < this.numLEDs; i++) {
+            this.controller.sendRGB(i, 0, 0, 0);
+            Thread.sleep(50);
+        }
+    }
+
     /** Animates a seesaw motion: orange sweep forward, green sweep backward. */
     public void seesawOrangeGreen() throws InterruptedException {
         for (int i = 0; i < this.numLEDs; i++) {
@@ -80,6 +90,24 @@ public class LEDAnimator {
         for (int i = 0; i < this.numLEDs; i++) {
             this.controller.sendRGB(this.numLEDs - i - 1, 0, 128, 0);
             Thread.sleep(100);
+        }
+    }
+
+    /** Cycles red, blue, and white down the strip. */
+    public void barberShop() throws InterruptedException {
+        for (int t = 0; t < 50; t++) {
+            for (int i = 0; i < this.numLEDs; i++) {
+                if ((t + i) % 3 == 0) {
+                    this.controller.sendRGB(i, 100, 0, 0);
+                }
+                else if ((t + i) % 3 == 1) {
+                    this.controller.sendRGB(i, 0, 0, 100);
+                }
+                else {
+                    this.controller.sendRGB(i, 100, 100, 100);
+                }
+            }
+            Thread.sleep(250);
         }
     }
 
@@ -134,43 +162,55 @@ public class LEDAnimator {
         LEDAnimator animator = new LEDAnimator(8);
 
         while (true) {
-            animator.blinkFrequency();
-            // animator.controller.sendRGB(0, 128, 0, 0);
-            // Thread.sleep(3000);
 
-            // animator.allRed();
-            // Thread.sleep(3000);
+            animator.controller.sendRGB(0, 128, 0, 0);
+            Thread.sleep(3000);
 
-            // animator.rainbow();
-            // Thread.sleep(3000);
+            animator.allRed();
+            Thread.sleep(3000);
 
-            // animator.alternateRedBlue();
-            // Thread.sleep(3000);
+            animator.rainbow();
+            Thread.sleep(3000);
 
-            // animator.gradientRedGreen();
-            // Thread.sleep(3000);
+            animator.alternateRedBlue();
+            Thread.sleep(3000);
 
-            // animator.clear();
-            // for (int i = 0; i < 6; i++) {
-            //     animator.controller.sendRGB(0, 128, 0, 0);
-            //     Thread.sleep(500);
-            //     animator.controller.sendRGB(0, 0, 0, 0);
-            //     Thread.sleep(500);
-            // }
+            animator.gradientRedGreen();
+            Thread.sleep(3000);
 
-            // for (int i = 0; i < 4; i++) {
-            //     animator.seesawOrangeGreen();
-            // }
+            animator.clear();
+            for (int i = 0; i < 6; i++) {
+                animator.controller.sendRGB(0, 128, 0, 0);
+                Thread.sleep(500);
+                animator.controller.sendRGB(0, 0, 0, 0);
+                Thread.sleep(500);
+            }
 
-            // for (int i = 0; i < 4; i++) {
-            //     animator.pingPong();
-            // }
+            for (int i = 0; i < 1; i++) {
+                animator.blinkFrequently();
+            }
 
-            // for (int i = 0; i < 4; i++) {
-            //     animator.wipeRainbow();
-            // }
+            for (int i = 0; i < 4; i++) {
+                animator.growAndShrink();
+            }
 
-            // animator.clear();
+            for (int i = 0; i < 4; i++) {
+                animator.seesawOrangeGreen();
+            }
+
+            for (int i = 0; i < 1; i++) {
+                animator.barberShop();
+            }
+
+            for (int i = 0; i < 4; i++) {
+                animator.pingPong();
+            }
+
+            for (int i = 0; i < 4; i++) {
+                animator.wipeRainbow();
+            }
+
+            animator.clear();
         }
     }
 }
