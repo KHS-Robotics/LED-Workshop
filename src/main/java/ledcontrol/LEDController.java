@@ -18,7 +18,7 @@ public class LEDController {
      * connect to an Arduino device over serial.
      */
     public LEDController() {
-        this.connectToArduino(9600);
+        this.connectToArduino(19200);
     }
 
     /**
@@ -33,14 +33,12 @@ public class LEDController {
      * @param blue  the blue component (0–255)
      */
     public void sendRGB(int index, int red, int green, int blue) {
-        byte[] packet = new byte[7];
+        byte[] packet = new byte[5];
         packet[0] = (byte) 0xAA;  // Header
         packet[1] = (byte) index;  // LED number
         packet[2] = (byte) red;  // red value
         packet[3] = (byte) green;  // green value
         packet[4] = (byte) blue;  // blue value
-        packet[5] = (byte) ((index + red + green + blue) % 256);  // Checksum
-        packet[6] = (byte) 0x55;  // Footer
         comPort.writeBytes(packet, packet.length);
     }
     
