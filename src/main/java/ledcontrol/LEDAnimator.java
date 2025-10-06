@@ -53,22 +53,6 @@ public class LEDAnimator {
         }
     }
 
-    /** Blink the LEDs at increasing frequency. */
-    public void blinkFrequently() throws InterruptedException {
-        for (int i = 0; i < this.numLEDs; i++) {
-            for (int k = 0; k <= i; k++) {
-                for (int j = 0; j <= i; j++) {
-                    this.controller.sendRGB(j, 64, 64, 64);
-                }
-                Thread.sleep(2000 / (i + 1));
-                for (int j = 0; j <= i; j++) {
-                    this.controller.sendRGB(j, 0, 0, 0);
-                }
-                Thread.sleep(2000 / (i + 1));
-            }
-        }
-    }
-
     /** Turns lights on one at a time, then off one at a time. */
     public void growAndShrink() throws InterruptedException {
         for (int i = 0; i < this.numLEDs; i++) {
@@ -78,6 +62,18 @@ public class LEDAnimator {
         for (int i = 0; i < this.numLEDs; i++) {
             this.controller.sendRGB(i, 0, 0, 0);
             Thread.sleep(50);
+        }
+    }
+
+    /** Blink the LEDs at increasing frequency. */
+    public void blinkSequence() throws InterruptedException {
+        for (int i = 0; i < this.numLEDs; i++) {
+            for (int k = 0; k <= i; k++) {
+                this.controller.sendRGB(i, 64, 64, 64);
+                Thread.sleep(1000 / (i + 1));
+                this.controller.sendRGB(i, 0, 0, 0);
+                Thread.sleep(1000 / (i + 1));
+            }
         }
     }
 
@@ -94,20 +90,21 @@ public class LEDAnimator {
     }
 
     /** Cycles red, blue, and white down the strip. */
-    public void barberShop() throws InterruptedException {
-        for (int t = 0; t < 50; t++) {
+    public void barberPole() throws InterruptedException {
+        for (int t = 0; t < 100; t++) {
             for (int i = 0; i < this.numLEDs; i++) {
-                if ((t + i) % 3 == 0) {
-                    this.controller.sendRGB(i, 100, 0, 0);
+                int counter = (t + i) % 9;
+                if (counter < 3) {
+                    this.controller.sendRGB(i, 128, 0, 0);
                 }
-                else if ((t + i) % 3 == 1) {
-                    this.controller.sendRGB(i, 0, 0, 100);
+                else if (counter >= 3 && counter < 6) {
+                    this.controller.sendRGB(i, 0, 0, 128);
                 }
                 else {
-                    this.controller.sendRGB(i, 100, 100, 100);
+                    this.controller.sendRGB(i, 128, 128, 128);
                 }
             }
-            Thread.sleep(250);
+            Thread.sleep(200);
         }
     }
 
@@ -161,9 +158,9 @@ public class LEDAnimator {
     public static void main(String[] args) throws InterruptedException {
         LEDAnimator animator = new LEDAnimator(8);
 
-        while (true) {
+        animator.controller.sendRGB(0, 128, 0, 0);        
 
-            animator.controller.sendRGB(0, 128, 0, 0);
+        while (true) {   
             Thread.sleep(3000);
 
             animator.allRed();
@@ -187,7 +184,7 @@ public class LEDAnimator {
             }
 
             for (int i = 0; i < 1; i++) {
-                animator.blinkFrequently();
+                animator.blinkSequence();
             }
 
             for (int i = 0; i < 4; i++) {
@@ -199,7 +196,7 @@ public class LEDAnimator {
             }
 
             for (int i = 0; i < 1; i++) {
-                animator.barberShop();
+                animator.barberPole();
             }
 
             for (int i = 0; i < 4; i++) {
