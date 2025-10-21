@@ -77,15 +77,21 @@ public class LEDAnimator {
         }
     }
 
-    /** Animates a seesaw motion: orange sweep forward, green sweep backward. */
-    public void seesawOrangeGreen() throws InterruptedException {
-        for (int i = 0; i < this.numLEDs; i++) {
-            this.controller.sendRGB(i, 128, 64, 0);
-            Thread.sleep(100);
+    /** Animates a ping-pong motion: yellow forward, cyan backward. */
+    public void pingPong() throws InterruptedException {
+        this.controller.sendRGB(0, 128, 128, 0);
+        this.controller.sendRGB(this.numLEDs - 1, 0, 128, 128);
+
+        for (int i = 1; i < this.numLEDs - 1; i++) {
+            this.controller.sendRGB(i, 128, 128, 0);
+            Thread.sleep(150);
+            this.controller.sendRGB(i, 0, 0, 0);
         }
-        for (int i = 0; i < this.numLEDs; i++) {
-            this.controller.sendRGB(this.numLEDs - i - 1, 0, 128, 0);
-            Thread.sleep(100);
+
+        for (int i = this.numLEDs - 2; i > 0; i--) {
+            this.controller.sendRGB(i, 0, 128, 128);
+            Thread.sleep(150);
+            this.controller.sendRGB(i, 0, 0, 0);
         }
     }
 
@@ -108,21 +114,15 @@ public class LEDAnimator {
         }
     }
 
-    /** Animates a ping-pong motion: yellow forward, cyan backward. */
-    public void pingPong() throws InterruptedException {
-        this.controller.sendRGB(0, 128, 128, 0);
-        this.controller.sendRGB(this.numLEDs - 1, 0, 128, 128);
-
-        for (int i = 1; i < this.numLEDs - 1; i++) {
-            this.controller.sendRGB(i, 128, 128, 0);
-            Thread.sleep(150);
-            this.controller.sendRGB(i, 0, 0, 0);
+    /** Animates a seesaw motion: orange sweep forward, green sweep backward. */
+    public void seesawOrangeGreen() throws InterruptedException {
+        for (int i = 0; i < this.numLEDs; i++) {
+            this.controller.sendRGB(i, 128, 64, 0);
+            Thread.sleep(100);
         }
-
-        for (int i = this.numLEDs - 2; i > 0; i--) {
-            this.controller.sendRGB(i, 0, 128, 128);
-            Thread.sleep(150);
-            this.controller.sendRGB(i, 0, 0, 0);
+        for (int i = 0; i < this.numLEDs; i++) {
+            this.controller.sendRGB(this.numLEDs - i - 1, 0, 128, 0);
+            Thread.sleep(100);
         }
     }
 
@@ -192,7 +192,7 @@ public class LEDAnimator {
             }
 
             for (int i = 0; i < 4; i++) {
-                animator.seesawOrangeGreen();
+                animator.pingPong();
             }
 
             for (int i = 0; i < 1; i++) {
@@ -200,9 +200,9 @@ public class LEDAnimator {
             }
 
             for (int i = 0; i < 4; i++) {
-                animator.pingPong();
+                animator.seesawOrangeGreen();
             }
-
+            
             for (int i = 0; i < 4; i++) {
                 animator.wipeRainbow();
             }
