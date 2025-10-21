@@ -199,13 +199,13 @@ public class LEDAnimator {
                 animator.barberPole();
             }
 
-            for (int i = 0; i < 4; i++) {
-                animator.seesawOrangeGreen();
-            }
+            // for (int i = 0; i < 4; i++) {
+            //     animator.seesawOrangeGreen();
+            // }
             
-            for (int i = 0; i < 4; i++) {
-                animator.wipeRainbow();
-            }
+            // for (int i = 0; i < 4; i++) {
+            //     animator.wipeRainbow();
+            // }
 
             animator.clear();
         }
