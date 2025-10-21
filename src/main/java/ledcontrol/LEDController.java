@@ -53,19 +53,21 @@ public class LEDController {
     }
 
     /**
-     * Attempts to connect to an Arduino device by scanning available serial
-     * ports and selecting one whose description contains "arduino".
+     * Attempts to connect to a serial port containing an Arduino Nano Every.
+     * The program will exit if a suitable port cannot be found.
      *
      * @param baudRate the baud rate for serial communcation with the Arduino
      */
     public void connectToArduino(int baudRate) {
+        System.out.print("Connecting to Arduino....");
+
         // Get all available serial ports
         SerialPort[] ports = SerialPort.getCommPorts();
 
         // If no ports are found, exit early
         if (ports.length == 0) {
-            System.out.println("No serial ports found.");
-            return;
+            System.out.println("....no serial ports found. Is the Arduino plugged in?\n");
+            System.exit(1);
         }
 
         for (SerialPort port : ports) {
@@ -80,16 +82,17 @@ public class LEDController {
 
         // If no Arduino-like port was found, exit
         if (comPort == null) {
-            System.out.println("No Arduino Nano Every found.");
-            return;
+            System.out.println("....no Arduino Nano Every found. Is the Arduino plugged in?\n");
+            System.exit(2);
         }
 
         // Set baud rate and try to open the port
         comPort.setBaudRate(baudRate);
         if (comPort.openPort()) {
-            System.out.println("Connected to " + comPort.getSystemPortName());
+            System.out.println("....connected to " + comPort.getSystemPortName());
         } else {
-            System.out.println("Failed to open Arduino port. Is it already in use?");
+            System.out.println("....couldn't open Arduino port. Is it already in use?\n");
+            System.exit(3);
         }
         
         // Wait 1 second to ensure Arduino has finished starting up
