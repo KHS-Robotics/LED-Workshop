@@ -97,7 +97,7 @@ public class LEDAnimator {
 
     /** Cycles red, blue, and white down the strip. */
     public void barberPole() throws InterruptedException {
-        for (int t = 0; t < 100; t++) {
+        for (int t = 0; t < 50; t++) {
             for (int i = 0; i < this.numLEDs; i++) {
                 int counter = (t + i) % 9;
                 if (counter < 3) {
