@@ -5,7 +5,10 @@ In this workshop, you will develop your fundamental Java skills by programming a
 
 The goal is to write the code needed to produce the light patterns from the `patterns` folder as well and/or your own imagination.
 
-![Hardware setup](assets/hardware_setup.jpeg)
+<p align="center">
+  <img src="assets/hardware_setup.jpeg" alt="Hardware setup" width="500"/>
+</p>
+
 
 ## Software Setup
 ### Part 1: Install developer tools
