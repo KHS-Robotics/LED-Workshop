@@ -11,10 +11,11 @@ The goal is to write the code needed to produce the light patterns from the `pat
 
 
 ## Software Setup
+
 ### Part 1: Install developer tools
 These tools are needed not just for this workshop but for any software development on the team. This part can be skipped if the tools are already installed.
 
-##### 1a. WPILib
+#### 1a. WPILib
 WPILib provides the Visual Studio Code editor and specific tools for programming an FRC robot.
 
 Follow the instructions on the [WPILib Installation Guide](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) to download, mount, and install WPILib. Choose the following install options when prompted:
@@ -22,7 +23,7 @@ Follow the instructions on the [WPILib Installation Guide](https://docs.wpilib.o
   * **Install for this User**
   * **Download for this computer only (fastest)**
 
-##### 1b. Git
+#### 1b. Git
 Git is a version control system that allows multiple developers to collaborate in the same code base.
 
 [Download Git here](https://git-scm.com/install/). It's ok to use all the default options during the installation (they can be changed later if needed).
@@ -30,7 +31,7 @@ Git is a version control system that allows multiple developers to collaborate i
 ### Part 2: Prepare for LED Workshop
 These steps are needed for the LED Workshop specifically.
 
-##### 2a. Download and load in repository
+#### 2a. Download and load in repository
   1. Open WPILib VS Code and click Terminal > New Terminal
 
   2. In the terminal that opens, enter the following to clone this Github repository:
@@ -42,7 +43,7 @@ These steps are needed for the LED Workshop specifically.
       * Drag and drop the folder into the editor
       * Enter `code LED-Workshop` in the terminal
 
-##### 2b. Hello World
+#### 2b. Hello World
 Create the file `LEDAnimator.java` from within the `src/main/java/ledcontrol/` folder and fill it with the following contents. This creates a LEDController object called "controller" and uses its "sendRGB" method to turn on a single LED.
 ```
 package ledcontrol;
