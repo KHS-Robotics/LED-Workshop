@@ -12,6 +12,8 @@ The goal is to write the code needed to produce the light patterns from the `pat
 
 ## Software Setup
 
+(See [here](https://youtu.be/KOT4bHyCEeY) for a video guide to the software setup.)
+
 ### Part 1: Install developer tools
 These tools are needed not just for this workshop but for any software development on the team. This part can be skipped if the tools are already installed.
 
